@@ -1,0 +1,22 @@
+<launch>
+  
+  <arg name="show_rviz" default="true"/>
+      <arg name="gui" default="true" />
+  
+  <param name="use_gui" value="true"/>  
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find aras_visual_servo_gazebo)/world/empty.world"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+
+  <param name="robot_description"
+   command="$(find xacro)/xacro.py '$(find aras_visual_servo_gazebo)/robots/aras_visual_servo.URDF'" />
+
+  <node name="aras_visual_servo_spawn" pkg="gazebo_ros" type="spawn_model" output="screen" 
+    args="-urdf -param robot_description -model aras_visual_servo" />
+
+</launch>

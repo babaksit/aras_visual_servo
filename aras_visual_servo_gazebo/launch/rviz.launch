@@ -1,0 +1,9 @@
+<launch>
+	<arg name="model" />
+	<arg name="gui" default="true" />
+	<param name="robot_description" textfile="$(find aras_visual_servo_gazebo)/robots/aras_visual_servo.URDF"  />
+	<param name="use_gui" value="true"/>
+	<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find urdf_tutorial)/urdf.rviz" required="true" />
+</launch>

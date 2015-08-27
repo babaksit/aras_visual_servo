@@ -1,0 +1,740 @@
+
+<robot
+  name="aras_visual_servo">
+<gazebo>
+  <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+    <robotNamespace>/aras_visual_servo</robotNamespace>
+  </plugin>
+</gazebo>
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0.0160498474847556 0.380715448526243 -0.000709642095171104"
+        rpy="0 0 0" />
+      <mass
+        value="1729.3927673525" />
+      <inertia
+        ixx="475.397369733653"
+        ixy="34.5663756406899"
+        ixz="-1.79934549289071"
+        iyy="1072.78236249213"
+        iyz="-1.69210564621586"
+        izz="1103.62478080047" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://aras_visual_servo_gazebo/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://aras_visual_servo_gazebo/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="slider">
+    <inertial>
+      <origin
+        xyz="-3.2233E-10 -0.0079955 -0.00255"
+        rpy="0 0 0" />
+      <mass
+        value="1.5957" />
+      <inertia
+        ixx="0.0042058"
+        ixy="-8.1189E-13"
+        ixz="1.3549E-07"
+        iyy="0.0076559"
+        iyz="-2.5549E-05"
+        izz="0.0044974" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://aras_visual_servo_gazebo/meshes/slider.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89412 0.91373 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://aras_visual_servo_gazebo/meshes/slider.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="gantry"
+    type="prismatic">
+    <origin
+      xyz="0 0 1.6263"
+      rpy="1.5708 -6.123E-17 -1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="slider" />
+    <axis
+      xyz="0 0 -1" />
+       <dynamics 
+        damping="0.8" 
+        friction="0.5"/>
+    <limit
+      lower="-1.5"
+      upper="1.5"
+      effort="80000"
+      velocity="5" />
+  </joint>
+  <link
+    name="link0">
+    <inertial>
+      <origin
+        xyz="-0.03889 7.2007E-06 0.07653"
+        rpy="0 0 0" />
+      <mass
+        value="5.272" />
+      <inertia
+        ixx="0.021924"
+        ixy="-4.5762E-06"
+        ixz="0.0018667"
+        iyy="0.032682"
+        iyz="-7.7909E-07"
+        izz="0.030507" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://aras_visual_servo_gazebo/meshes/link0.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://aras_visual_servo_gazebo/meshes/link0.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J0"
+    type="fixed">
+    <origin
+      xyz="0 -0.02888 0"
+      rpy="-1.5708 1.2246E-16 3.1416" />
+    <parent
+      link="slider" />
+    <child
+      link="link0" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="link1">
+    <inertial>
+      <origin
+        xyz="-0.007172 -1.9992E-07 0.080508"
+        rpy="0 0 0" />
+      <mass
+        value="2.2792" />
+      <inertia
+        ixx="0.0091615"
+        ixy="1.5787E-08"
+        ixz="0.00018817"
+        iyy="0.0096145"
+        iyz="6.3703E-09"
+        izz="0.0051301" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://aras_visual_servo_gazebo/meshes/link1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://aras_visual_servo_gazebo/meshes/link1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J1"
+    type="revolute">
+    <origin
+      xyz="0 0 0.168"
+      rpy="0 0 0" />
+    <parent
+      link="link0" />
+    <child
+      link="link1" />
+    <axis
+      xyz="0 0 1" />
+    <dynamics 
+        damping="0.7" 
+        friction="0.9"/>
+    <limit
+      lower="-2.0943"
+      upper="2.0943"
+      effort="50000"
+      velocity="5" />
+  </joint>
+  <link
+    name="link2">
+    <inertial>
+      <origin
+        xyz="-0.00045943 -1.1149E-06 0.11501"
+        rpy="0 0 0" />
+      <mass
+        value="3.6544" />
+      <inertia
+        ixx="0.039615"
+        ixy="-1.5177E-09"
+        ixz="-7.018E-05"
+        iyy="0.02958"
+        iyz="5.2465E-08"
+        izz="0.015467" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://aras_visual_servo_gazebo/meshes/link2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://aras_visual_servo_gazebo/meshes/link2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J2"
+    type="revolute">
+    <origin
+      xyz="0 0 0.132"
+      rpy="0 0 0" />
+    <parent
+      link="link1" />
+    <child
+      link="link2" />
+    <axis
+      xyz="0 1 0" />
+    <dynamics 
+      damping="0.1" 
+      friction="0.9"/>
+    <limit
+      lower="-2.0943"
+      upper="2.0943"
+      effort="50000"
+      velocity="5" />
+  </joint>
+  <link
+    name="link3">
+    <inertial>
+      <origin
+        xyz="7.5454E-06 -0.0003295 0.069078"
+        rpy="0 0 0" />
+      <mass
+        value="1.6841" />
+      <inertia
+        ixx="0.0082866"
+        ixy="6.2094E-07"
+        ixz="-1.3024E-06"
+        iyy="0.0076034"
+        iyz="-1.2068E-05"
+        izz="0.0027866" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://aras_visual_servo_gazebo/meshes/link3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://aras_visual_servo_gazebo/meshes/link3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J3"
+    type="revolute">
+    <origin
+      xyz="0 0 0.25"
+      rpy="0 0 0" />
+    <parent
+      link="link2" />
+    <child
+      link="link3" />
+    <axis
+      xyz="0 1 0" />
+    <dynamics 
+        damping="0.9" 
+        friction="0.9"/>
+    <limit
+      lower="-2.0943"
+      upper="2.0943"
+      effort="50000"
+      velocity="5" />
+  </joint>
+  <link
+    name="link5">
+    <inertial>
+      <origin
+        xyz="6.3435E-09 -6.8497E-10 -0.0052055"
+        rpy="0 0 0" />
+      <mass
+        value="1.32285" />
+      <inertia
+        ixx="0.00029998"
+        ixy="-7.1309E-12"
+        ixz="-6.7415E-11"
+        iyy="0.00041146"
+        iyz="2.4233E-12"
+        izz="0.00021741" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://aras_visual_servo_gazebo/meshes/link5.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://aras_visual_servo_gazebo/meshes/link5.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J5"
+    type="revolute">
+    <origin
+      xyz="0 0 0.16"
+      rpy="0 0 3.1416" />
+    <parent
+      link="link3" />
+    <child
+      link="link5" />
+    <axis
+      xyz="0 -1 0" />
+    <dynamics 
+        damping="0.9" 
+        friction="0.9"/>
+    <limit
+      lower="-2.0943"
+      upper="2.0943"
+      effort="50000"
+      velocity="5" />
+  </joint>
+  <link
+    name="link6">
+    <inertial>
+      <origin
+        xyz="6.7949E-06 2.6973E-17 0.0076492"
+        rpy="0 0 0" />
+      <mass
+        value="0.3641" />
+      <inertia
+        ixx="0.00031783"
+        ixy="-3.1885E-20"
+        ixz="-2.882E-08"
+        iyy="0.0003178"
+        iyz="2.216E-20"
+        izz="0.00043046" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://aras_visual_servo_gazebo/meshes/link6.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://aras_visual_servo_gazebo/meshes/link6.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J6"
+    type="revolute">
+    <origin
+      xyz="0 0 0.0718"
+      rpy="0 0 -3.1416" />
+    <parent
+      link="link5" />
+    <child
+      link="link6" />
+    <axis
+      xyz="0 0 1" />
+    <dynamics 
+        damping="0.1" 
+        friction="0.9"/>
+    <limit
+      lower="-3000"
+      upper="3000"
+      effort="50000"
+      velocity="5" />
+ </joint>
+ <link name="planar_object">
+      
+    <inertial>
+      <origin xyz="0 0 0" /> 
+      <mass value="1.0" />
+      <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="100.0"  iyz="0.0"  izz="1.0" />
+    </inertial>
+    <visual>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.001 0.05" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.001 0.05" />
+      </geometry>
+    </collision>
+  </link>
+  
+  <link name="planar_object_2">
+    <inertial>
+      <origin xyz="0 0 0" /> 
+      <mass value="1.0" />
+      <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="100.0"  iyz="0.0"  izz="1.0" />
+    </inertial>
+    <visual>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+      <origin xyz="0.025 0.0005 0.005"/>
+      <geometry>
+        <box size="0.025 0.0005 0.025" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0.025 0.0005 0.005"/>
+      <geometry>
+        <box size="0.025 0.0005 0.025" />
+      </geometry>
+    </collision>
+  </link>
+
+  <gazebo reference="planar_object">
+    <material>Gazebo/Black</material>
+  </gazebo>
+  
+  <gazebo reference="planar_object_2">
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <joint
+    name="J01"
+    type="fixed">
+    <origin
+      xyz="0 0 0.59"
+      rpy="1.5708 -6.123E-17 -1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="planar_object" />
+    <axis
+      xyz="0 0 0" />
+       <dynamics 
+        damping="0.1" 
+        friction="0.9"/>
+    <limit
+      lower="-1.5"
+      upper="1.5"
+      effort="30"
+      velocity="20" />
+  </joint>
+  <joint
+    name="J02"
+    type="fixed">
+    <origin
+      xyz="0 0 0.59"
+      rpy="1.5708 -6.123E-17 -1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="planar_object_2" />
+    <axis
+      xyz="0 0 0" />
+       <dynamics 
+        damping="0.1" 
+        friction="0.9"/>
+    <limit
+      lower="-1.5"
+      upper="1.5"
+      effort="30"
+      velocity="20" />
+  </joint>
+  <!-- Camera -->
+  <joint name="camera_joint" type="fixed">
+    <axis xyz="0 0 0" />
+    <origin xyz="0 0 0.0334" rpy="3.14 -1.57 0"/>
+    <parent link="link6"/>
+    <child link="camera_link"/>
+  </joint>
+ 
+  <link name="camera_link">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+    <box size="0.01 0.09 0.09"/>
+      </geometry>
+    </collision>
+ 
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.09 0.09 "/>
+      </geometry>
+      <material name="red"/>
+    </visual>
+ 
+    <inertial>
+      <mass value="0.1" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+  <transmission name="gantry">
+      <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="gantry_motor">
+    </actuator>
+    <joint name="gantry">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <mechanicalReduction>50.0</mechanicalReduction>
+      <motorTorqueConstant>1.0</motorTorqueConstant>
+  </transmission>
+
+<gazebo reference="gantry">
+    <erp>0.1</erp>
+    <stopKd value="100000000.0" />
+    <stopKp value="100000000.0" />
+    <fudgeFactor value="0.1" />
+ </gazebo>
+
+   <transmission name="J1">
+      <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="motor1">
+    </actuator>
+    <joint name="J1">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <mechanicalReduction>100.0</mechanicalReduction>
+      <motorTorqueConstant>1.0</motorTorqueConstant>
+  </transmission>
+
+<gazebo reference="J1">
+    <erp>0.1</erp>
+    <stopKd value="100000000.0" />
+    <stopKp value="100000000.0" />
+    <fudgeFactor value="0.1" />
+ </gazebo>
+
+    <transmission name="J2">
+      <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="motor2">
+    </actuator>
+    <joint name="J2">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <mechanicalReduction>100.0</mechanicalReduction>
+      <motorTorqueConstant>1.0</motorTorqueConstant>
+  </transmission>
+
+<gazebo reference="J2">
+    <erp>0.1</erp>
+    <stopKd value="100000000.0" />
+    <stopKp value="100000000.0" />
+    <fudgeFactor value="0.1" />
+ </gazebo>
+
+ <transmission name="J3">
+      <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="motor3">
+    </actuator>
+    <joint name="J3">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <mechanicalReduction>10.0</mechanicalReduction>
+      <motorTorqueConstant>1.0</motorTorqueConstant>
+  </transmission>
+
+<gazebo reference="J3">
+    <erp>0.1</erp>
+    <stopKd value="100000000.0" />
+    <stopKp value="100000000.0" />
+    <fudgeFactor value="0.1" />
+ </gazebo>
+
+  <transmission name="J5">
+      <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="motor5">
+    </actuator>
+    <joint name="J5">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <mechanicalReduction>10.0</mechanicalReduction>
+      <motorTorqueConstant>1.0</motorTorqueConstant>
+  </transmission>
+
+<gazebo reference="J5">
+    <erp>0.1</erp>
+    <stopKd value="100000000.0" />
+    <stopKp value="100000000.0" />
+    <fudgeFactor value="0.1" />
+ </gazebo>
+
+ <transmission name="J6">
+      <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="motor6">
+    </actuator>
+    <joint name="J6">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <mechanicalReduction>10.0</mechanicalReduction>
+      <motorTorqueConstant>1.0</motorTorqueConstant>
+  </transmission>
+
+<gazebo reference="J6">
+    <erp>0.1</erp>
+    <stopKd value="100000000.0" />
+    <stopKp value="100000000.0" />
+    <fudgeFactor value="0.1" />
+ </gazebo>
+
+  <gazebo reference="base_link">
+    <mu1>100</mu1>
+    <mu2>100</mu2>
+
+  </gazebo>
+  <gazebo reference="slider">
+    <mu1>100</mu1>
+    <mu2>100</mu2>
+   
+  </gazebo>
+  <gazebo reference="camera_link">
+    <sensor type="camera" name="camera1">
+      <update_rate>30.0</update_rate>
+      <camera name="head">
+        <horizontal_fov>1.6</horizontal_fov>
+        <image>
+          <width>320</width>
+          <height>240</height>
+          <format>R8G8B8</format>
+        </image>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>30.0</updateRate>
+        <cameraName>labrob/camera</cameraName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>camera_link</frameName>
+        <hackBaseline>0.07</hackBaseline>
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+      </plugin>
+    </sensor>
+  </gazebo>
+</robot>
