@@ -29,11 +29,11 @@ rosrun aras_visual_servo_controller aras_visual_servo_controller_node
 AUTHORS
 ---------------
 
-Dr.Taghirad (supervisor)
-Babak Sistani Zadeh Aghdam
-Javad Ramezanzadeh
-Parisa Masnadi
-Ebrahim Abedloo
+Dr.Taghirad (supervisor) <br>
+Babak Sistani Zadeh Aghdam <br>
+Javad Ramezanzadeh <br>
+Parisa Masnadi <br>
+Ebrahim Abedloo <br>
 
 
 
