@@ -18,7 +18,7 @@
 
 
 #define MAX_BINARY_VALUE 255.0
-#define THRESHOLD_VALUE 180.0
+#define THRESHOLD_VALUE 250.0
 
 #define DELTA_X 0.017
 #define DELTA_Y 0.0185

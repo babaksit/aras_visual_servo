@@ -21,10 +21,10 @@
 
 #define CAMERA_DATA_SIZE 20
 
-#define LAMBDA_X 100
-#define LAMBDA_Y 100
-#define LAMBDA_Z 100
-#define LAMBDA_THETA 0
+#define LAMBDA_X 200
+#define LAMBDA_Y 200
+#define LAMBDA_Z 200
+#define LAMBDA_THETA -0.01
 
 #define L1  0.3
 #define L2  0.25

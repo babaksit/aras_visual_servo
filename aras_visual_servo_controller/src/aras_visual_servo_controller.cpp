@@ -71,8 +71,8 @@ void VisualServoController::hardSetJointPosition(float target_positions[JOINTS_N
             if(fabs((target_positions[i]-joints_position_[i]))>JOINTS_ERROR)
             {
                 close_enough =false;
-                ROS_INFO("%lf %d",fabs((target_positions[i]-joints_position_[i])),i);
-                ROS_INFO("%lf , %lf",target_positions[i],joints_position_[i]);
+//                ROS_INFO("%lf %d",fabs((target_positions[i]-joints_position_[i])),i);
+//                ROS_INFO("%lf , %lf",target_positions[i],joints_position_[i]);
                 break;
             }
         }
@@ -81,7 +81,7 @@ void VisualServoController::hardSetJointPosition(float target_positions[JOINTS_N
             return;
         }
         close_enough = true;
-        ROS_INFO("not close enough");
+//        ROS_INFO("not close enough");
     }
 
     return;
@@ -117,7 +117,6 @@ void VisualServoController::jointStateCB(const sensor_msgs::JointStatePtr& joint
     for(int i=0;i<JOINTS_NUM-1;i++)
     {
         joints_position_[i+1]= joint_states->position[i];
-        //         ROS_INFO("joint state callback");
     }
     joints_position_[0] = joint_states->position[JOINTS_NUM-1];
 }
@@ -136,7 +135,6 @@ void VisualServoController::cameraDataCB(const std_msgs::Float64MultiArray::Cons
         for(int j=0;j<DOF;j++)
         {
             jacobian_inverse_mat_.at<double>(j,i) = camera_data_arr->data[(i*DOF+j)];
-            //            ROS_INFO("%lf",camera_data_arr->data[(i*DOF+j)]);
         }
     }
     for(int i=CAMERA_DATA_SIZE-KERNEL_SIZE;i<CAMERA_DATA_SIZE;i++)
@@ -147,9 +145,9 @@ void VisualServoController::cameraDataCB(const std_msgs::Float64MultiArray::Cons
 
 void VisualServoController::executeControlAlgorithm()
 {
-    while(true)
+    while(ros::ok())
     {
-        ROS_INFO("executeControlAlgorithm");
+//        ROS_INFO("executeControlAlgorithm");
         float velocity_x = 0, velocity_y = 0;
 
 
@@ -157,8 +155,8 @@ void VisualServoController::executeControlAlgorithm()
         cv::Mat control_signal(DOF,1, cv::DataType<double>::type);
         //!!!!!!!!yekbar etefagh biofad
         cv::Mat lambda(KERNEL_SIZE,KERNEL_SIZE, cv::DataType<double>::type);
-
-        //memcpy
+        //TODO
+        //replace it with memcpy
 
         for(int i=0;i<KERNEL_SIZE;i++)
         {
@@ -192,10 +190,10 @@ void VisualServoController::executeControlAlgorithm()
 
         //Calcute current position
         forwardKinematic(joints_position_, current_x, current_y, current_z, current_yaw);
-        for(int i=0;i<DOF;i++)
-        {
-            ROS_INFO("error :%lf",error.at<double>(i,0));
-        }
+//        for(int i=0;i<DOF;i++)
+//        {
+//            ROS_INFO("error :%lf",error.at<double>(i,0));
+//        }
 
         //Integral velocity to convert to Position;
         desired_x = current_x + control_signal.at<double>(0,0)*SAMPLE_TIME;
@@ -207,10 +205,7 @@ void VisualServoController::executeControlAlgorithm()
         // Compute Target joints value(Inverse Kinematic)
 
         inverseKinematic(target_position, desired_x, desired_y, desired_z, desired_yaw);
-//        for(int i=0;i<JOINTS_NUM;i++)
-//        {
-//            ROS_INFO("%f",target_position[i]);
-//        }
+
         hardSetJointPosition(target_position);
         camera_call_backed_ =false;
         while(camera_call_backed_ == false)
@@ -251,5 +246,3 @@ VisualServoController::~VisualServoController()
 {
 
 }
-
-

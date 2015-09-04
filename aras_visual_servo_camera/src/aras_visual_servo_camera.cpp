@@ -18,16 +18,13 @@ void VisualServoCamera::imageCB(const sensor_msgs::ImageConstPtr &image_msg)
         color_image_ = cv_bridge::toCvShare(image_msg, "bgr8")->image;
         cv::cvtColor(color_image_, grey_image_, CV_BGR2GRAY);
         cv::threshold( grey_image_, threshold_image_, THRESHOLD_VALUE, MAX_BINARY_VALUE ,cv::THRESH_BINARY_INV );
-//        threshold_image_msg_.header   = image_msg->header;
-//        threshold_image_msg_.encoding = sensor_msgs::image_encodings::TYPE_8UC1;
-//        threshold_image_msg_.image    = threshold_image_;
+
         cv::Mat jacobian_mat(KERNEL_SIZE,DOF,cv::DataType<double>::type);
         cv::Mat jacobian_inverse_mat(KERNEL_SIZE,DOF,cv::DataType<double>::type);
         float kernel[4];
         calculateKernel(&threshold_image_,kernel,jacobian_mat,jacobian_inverse_mat);
         publishCameraData(kernel,jacobian_inverse_mat);
-//        ROS_INFO("%lf,%lf,%lf,%lf : ",kernel[0],kernel[1],kernel[2],kernel[3]);
-//        threshold_image_pub_.publish(threshold_image_msg_.toImageMsg());
+
         cv::imshow("Orginal Image",color_image_);
         cv::imshow("Thresholded Image",threshold_image_);
         cv::waitKey(1);
@@ -61,8 +58,6 @@ bool VisualServoCamera::calculateKernel(const cv::Mat *image, float kernel[KERNE
     int img_height = image->rows;
     int img_width = image->cols;
     double jxx,jxtheta,jyy,jytheta;
-
-
 
     for(int i=0;i<KERNEL_SIZE;i++)
     {
@@ -98,20 +93,9 @@ bool VisualServoCamera::calculateKernel(const cv::Mat *image, float kernel[KERNE
         }
     }
 
-//    ROS_INFO("%lf",jacobian_mat.at<double>(2,2));
     cv::Moments image_moments = cv::moments(*image);
     kernel[3] = 0.5 * atan2( (2*image_moments.mu11/255.0) , (image_moments.mu20/255.0-image_moments.mu02/255.0) );
-    //ROS_INFO("%lf,%lf,%lf:",image_moments.mu11/255.0,image_moments.mu20/255.0,image_moments.mu02/255.0);
     cv::invert(jacobian_mat,jacobian_inverse_mat);
-//    for(int i=0;i<jacobian_inverse_mat.rows;i++)
-//    {
-//        for(int j=0;j<jacobian_inverse_mat.cols;j++)
-//        {
-////            camera_data_msg.data.push_back(jacobian_mat.at<double>(i,j));
-////            ROS_INFO("%lf",jacobian_mat.at<double>(i,j));
-//        }
-//    }
-
 }
 
 void VisualServoCamera::publishCameraData(const float kernel[KERNEL_SIZE] ,const cv::Mat jacobian_inverse_mat)
@@ -122,7 +106,6 @@ void VisualServoCamera::publishCameraData(const float kernel[KERNEL_SIZE] ,const
         for(int j=0;j<jacobian_inverse_mat.cols;j++)
         {
             camera_data_msg.data.push_back(jacobian_inverse_mat.at<double>(i,j));
-//            ROS_INFO("%lf",jacobian_inverse_mat.at<double>(i,j));
         }
     }
     for(int i=0;i<KERNEL_SIZE;i++)
@@ -130,7 +113,6 @@ void VisualServoCamera::publishCameraData(const float kernel[KERNEL_SIZE] ,const
         camera_data_msg.data.push_back(kernel[i]);
     }
     camera_data_pub_.publish(camera_data_msg);
-//    ROS_INFO("publishing");
 }
 
 VisualServoCamera::~VisualServoCamera()
