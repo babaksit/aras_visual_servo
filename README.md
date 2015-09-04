@@ -33,7 +33,7 @@ Babak Sistani Zadeh Aghdam <br>
 Javad Ramezanzadeh <br>
 Parisa Masnadi <br>
 Ebrahim Abedloo <br>
-Dr.Taghirad (supervisor) <br>
+Hamid D Taghirad (supervisor) <br>
 
 
 
